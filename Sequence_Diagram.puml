@@ -16,7 +16,7 @@ ChatWindow --> Client: Chat Window
 Client -> Server: Searching for second user
 Client -> Server: searchForUser()
 Server -> Client: getConnected()
-Client -> Server: Connect
+Client --> Server: Connect
 
 Server --> ChatWindow: Connected
 
@@ -28,7 +28,7 @@ alt Connected == true
    User1 -> ChatWindow: enters a message
    ChatWindow -> Client: messageEntered()
    Client -> ChatWindow: getMessage()
-   ChatWindow -> Client: Message
+   ChatWindow --> Client: Message
 
    Client -> Server: Sending Message
    Client -> Server: sendMessageToUser()
