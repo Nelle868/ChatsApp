@@ -27,7 +27,6 @@ class Server {
     - chatWindow: ChatWindow
     - clients: List<Client>
     + startServer(): void
-    + acceptClientConnection(client: Client): void
     + receiveMessageFromClient(message: String): void
     + sendMessageToClients(message: String): void
     - establishConnectionWithClient(client: Client): boolean 
