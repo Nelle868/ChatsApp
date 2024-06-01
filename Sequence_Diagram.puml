@@ -36,12 +36,20 @@ alt Connected == true
    Client --> Server: Message
 
    Server --> Server: Message
-   Client -> Server: recieveMessage()
-   Client -> Server: getMessage()
+   Server -> Client: recieveMessage()
+   Client -> Server: recieveMessageFromServer()
    Server --> Client: Message
-   ChatWindow -> Client: ShowMessage()
-   ChatWindow -> Client: getMessage()
+   Client -> ChatWindow: ShowMessage()
+   ChatWindow -> Client: recieveMessageFromClient()
    Client --> ChatWindow: Message
+
+   User1 -> ChatWindow: end connection
+   User1 -> ChatWindow: click on "End Connection" button
+   ChatWindow -> Server: endConnectionClicked()
+   Server -> ChatWindow: getDisconnected()
+   ChatWindow --> Server: Terminate 
+   Server --> ChatWindow: Connected == false
+
 
 else Connected == false
    Server --> Client: false
