@@ -1,0 +1,61 @@
+@startuml
+class ChatWindow {
+    - id: int
+    - content: String
+    + display(): void
+    + showMessage(message: String): void
+    + openChatClicked(): void
+    + messageEntered(): void
+    + getMessage(): String
+    + showStatus(status: String): void
+    + endConnectionClicked(): void
+    + recieveMessageFromClient(message: String): void
+    
+}
+
+class Client {
+    - id: int
+    - isConnected: boolean
+    - chatWindow: ChatWindow
+    + openChatWindow(): void
+    + searchForUser(): void
+    + connect(): void
+    + sendMessageToUser(message: String): void
+    + recieveMessageFromServer(message: String): void
+    + getMessage(): String
+    + showStatus(status: String): void
+    + endConnection(): void
+}
+
+class Server {
+    - id: int
+    - isConnected: boolean
+    - chatWindow: ChatWindow
+    + getConnected(): boolean
+    + sendMessageToUser(message: String): void
+    + recieveMessage(): String
+    + getDisconnected(): void
+}
+
+User1 -> ChatWindow: open Chat window
+User1 -> ChatWindow: click "Open Chat Window" button
+
+ChatWindow -> Client: openChatClicked()
+Client -> Server: searchForUser()
+Server -> Client: getConnected()
+Client -> ChatWindow: showStatus("connected with user")
+
+User1 -> ChatWindow: type your message
+User1 -> ChatWindow: enters a message
+ChatWindow -> Client: messageEntered()
+Client -> ChatWindow: getMessage()
+Client -> Server: sendMessageToUser()
+Server -> Client: recieveMessage()
+Client -> ChatWindow: showMessage()
+Server -> ChatWindow: getDisconnected()
+ChatWindow --> Server: Terminate
+
+User1 -> ChatWindow: end connection
+User1 -> ChatWindow: click on "End Connection" button
+ChatWindow -> Server: endConnectionClicked()
+@enduml
