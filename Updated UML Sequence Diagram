@@ -1,0 +1,50 @@
+@startuml
+
+actor User
+participant ChatWindow
+participant Client
+participant Server
+
+User -> ChatWindow: open Chat window
+User -> ChatWindow: click "Open Chat Window" button
+ChatWindow -> Client: openChatClicked()
+
+Client -> ChatWindow: getChatWindow()
+ChatWindow --> Client: Chat Window
+
+Client -> Server: getConnected()
+Server --> Server: Connected
+
+alt Connected == true
+   Server --> Client: true
+   Client -> ChatWindow: showStatus("connected with server")
+
+   Client -> Server: searchForUser()
+   Server -> Client: getUser()
+   Client --> Server: user
+   
+   User -> ChatWindow: type your message
+   User -> ChatWindow: enters a message
+   ChatWindow -> Client: messageEntered()
+   Client -> ChatWindow: getMessage()
+   ChatWindow --> Client: Message
+
+   Client -> Server: sendMessageToUser(Message)
+
+   Server -> Client: recieveMessageFromServer(Message)
+
+   Client -> ChatWindow: ShowMessage(Message)
+
+   User -> ChatWindow: end connection
+   User -> ChatWindow: click on "End Connection" button
+   ChatWindow -> Server: endConnectionClicked()
+   Server --> ChatWindow: Connected == false
+
+
+else Connected == false
+   Server --> Client: false
+   Client -> ChatWindow: showStatus("not connected")
+end
+loop
+end
+@enduml
