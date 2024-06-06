@@ -1,44 +1,55 @@
 @startuml
+
 class ChatWindow {
+ Manage UI
+ New Chat Window Button
     - id: int
     - content: String
     + display(): void
-    + receiveMessage(message: String): void
     + getChatWindow()
-    + getConnected()
     + getMessage()
+    + openChatClicked()
+    + messageEntered(message: String): void
+    + ShowMessage(message: String): void
+
 }
 
-class Client {
-    New Chat Window Button
+class Client { 
     - id: int
     - isConnected: boolean
     - chatWindow: ChatWindow
-    + connectToServer(server: Server): void
-    + sendMessage(message: String): void
+    + sendMessgeToUser(message: String): void
     + receiveMessageFromServer(message: String): void
+    + getConnected()
+    + searchForUser()
+    + getUser()
+    - endConnectionClicked(): boolean
+    - showStatus(client: Client): boolean 
 
 }
 
 class Server {
-    New Chat Window Button
+   
     - id: int
     - isConnected: boolean
     - chatWindow: ChatWindow
     - clients: List<Client>
-    + startServer(): void
-    + receiveMessageFromClient(message: String): void
-    + sendMessageToClients(message: String): void
-    - establishConnectionWithClient(client: Client): boolean 
+    + sendMessageToUser(message: String): void
+
 }
 
+ChatWindow --> Client
 Client --> ChatWindow
 Server --> ChatWindow
 Client --> Server
 Server --> Client
 ChatWindow --> Server
-ChatWindow --> Client
+
 
 Server ..> Client: Chat
 Client ..> Server: Chat
+
+Client --> ChatWindow: Uses
+ChatWindow --> Client: Sends messages
 @enduml
+
