@@ -1,0 +1,45 @@
+package "chatsapp_client" {
+    class Client {
+        - socket: Socket
+        - bWriter: BufferedWriter
+        - bReader: BufferedReader
+
+        + Client(socket: Socket)
+        + sendToServer(message: String): void
+        + startReadingFromServer(chatHistory: VBox): void
+    }
+
+    class ClientApplication {
+        + start(stage: Stage): void
+        + main {static}(args: String[]): void
+    }
+
+    class ClientController {
+        - txtInput: TextField
+        - anchorPane: AnchorPane
+        - scrollBar: ScrollBar
+        - chatHistory: VBox
+        - client: Client
+
+        + initialize(url: URL, resourceBundle: ResourceBundle): void
+        + clientLabel(serverMessage: String, chatHistory: VBox): void
+    }
+
+}
+// Fixing the connections still 
+
+Stage <-- ClientApplication
+
+Stage <-- ClientController 
+
+
+
+
+
+
+
+Server ..> Client: Chat
+Client ..> Server: Chat
+
+
+@enduml
