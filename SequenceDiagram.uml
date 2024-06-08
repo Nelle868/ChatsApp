@@ -1,0 +1,27 @@
+@startuml
+
+actor User
+participant ServerApplication
+participant SceneController
+participant ServerChatController
+participant Server
+participant ClientApplication
+participant ClientController
+participant Client
+
+User -> ServerApplication: start program
+ServerApplication -> ServerChatController: start()
+ServerApplication -> SceneController: Scenecontroller(stage: Stage)
+ServerChatController -> SceneController:setSceneController(scene Controller: Scene Controller)
+ServerChatController -> Server: initialize()
+ClientApplication -> ClientController: start()
+ClientController -> Client: initialize()
+Client -> Server: sendToServer(message)
+Server -> Client: startReadingFromClient(message)
+Server -> Client: sendToClient(message)
+Client -> Server: startReadingFromClient(message)
+ServerChatController -> Server: serverLabel()
+ClientController -> Client; clientLabel()  
+
+
+@enduml
