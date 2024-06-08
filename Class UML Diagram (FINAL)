@@ -1,0 +1,125 @@
+package chatsapp_client {
+    class Client {
+        - socket: Socket
+        - bWriter: BufferedWriter
+        - bReader: BufferedReader
+
+        + Client(socket: Socket)
+        + sendToServer(message: String): void
+        + startReadingFromServer(chatHistory: VBox): void
+    }
+
+    class ClientApplication {
+        + start(stage: Stage): void
+        + main {static}(args: String[]): void
+    }
+
+    class ClientController {
+        - txtInput: TextField
+        - anchorPane: AnchorPane
+        - scrollBar: ScrollBar
+        - chatHistory: VBox
+        - client: Client
+
+        + initialize(url: URL, resourceBundle: ResourceBundle): void
+        + clientLabel(serverMessage: String, chatHistory: VBox): void
+    }
+
+}
+
+package chatsapp {
+
+ class SceneController{
+     - stage: Stage
+     + Scenecontroller(stage: Stage)
+ }
+ 
+ class Server {
+     - seversocket: ServerSocket
+     - socket: Socket
+     - bReader: BufferedReader
+     - bWriter: BufferedWriter
+     + Server(serversocket: ServerSocket)
+     + sendToClient(message: String): void
+     + startReadingFromClient(chatHistory: 
+ VBox): void
+ }
+ 
+ class ServerChatController {
+     - username: Label
+     - txtInput: TextField
+     - anchorPane: AnchorPane
+     - enterButton: Button
+     - exitButton: Button
+     - scrollBar: ScrollBar
+     - chatHistory: VBox
+     - sceneController2: SceneController
+     - server: Server
+     + setSceneController(sceneController: 
+ SceneController): void
+     + initialize(url: URL, resourceBundle: 
+ ResourceBundle): void
+     + {static} serverLabel(clientMSG: String, 
+ chatHistory: VBox): void 
+ 
+ }
+ 
+ class ServerApplication {
+     + start(mainStage: Stage): void 
+     + {static} main(args: String[]): void
+ }
+}
+
+Socket <-- Client
+BufferedWriter <-- Client
+BufferedReader <-- Client
+VBox <-- Client
+
+Stage <-- ClientApplication
+
+Button <-- ClientController
+TextField <-- ClientController
+AnchorPane <-- ClientController
+ScrollBar <-- ClientController
+VBox <-- ClientController
+Client <-- ClientController
+
+
+ClientApplication ..> ClientController: Create
+
+ClientController *..> Client
+
+Server ..> Client: Chat Starts
+Client ..> Server: Chat
+
+ServerSocket <-- Server
+Socket <-- Server
+BufferedReader <-- Server
+BufferedWriter <-- Server
+VBox <-- Server
+
+Label <-- ServerChatController
+TextField <-- ServerChatController
+AnchorPane <-- ServerChatController
+Button <-- ServerChatController
+ScrollBar <-- ServerChatController
+VBox <-- ServerChatController
+SceneController <-- ServerChatController
+Server <-- ServerChatController
+
+
+ServerApplication ..> SceneController: Create
+ServerApplication ..> ServerChatController: Create
+
+SceneController <--* ServerChatController
+
+ServerChatController *..> Server
+ServerChatController --> Server
+
+
+chatsapp.Server --> chatsapp_client.Client : <<use>>
+
+
+
+
+@enduml
