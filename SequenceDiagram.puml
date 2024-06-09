@@ -2,8 +2,8 @@
 
 actor User
 participant ServerApplication
-participant SceneController
 participant ServerChatController
+participant SceneController
 participant Server
 participant ClientApplication
 participant ClientController
@@ -11,15 +11,19 @@ participant Client
 
 User -> ServerApplication: start program
 ServerApplication -> ServerChatController: start(main Stage: Stage)
-ServerApplication -> SceneController: Scenecontroller(stage: Stage)
 ServerChatController -> SceneController:setSceneController(scene Controller: Scene Controller)
 ServerChatController -> Server: initialize(url: URL, resourceBundle: ResourceBundle)
+
 ClientApplication -> ClientController: start(main Stage: Stage)
 ClientController -> Client: initialize(url: URL, resourceBundle: ResourceBundle)
+
 Client -> Server: sendToServer(message)
-Server -> Client: startReadingFromClient(message)
+Server -> Client: startReadingFromClient(Vbox chatHistory)
+Client --> Server: message
 Server -> Client: sendToClient(message)
-Client -> Server: startReadingFromClient(message)
+Client -> Server: startReadingFromServer(Vbox chatHistory)
+Server --> Client: message
+
 ServerChatController -> Server: serverLabel(clientMSG: String, chatHistory: VBox)
 ClientController -> Client: clientLabel(serverMessage: String, chatHistory: VBox)  
 
