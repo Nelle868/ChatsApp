@@ -65,15 +65,16 @@ package chatsapp_client {
     }
 }
 
-SceneController -- ServerApplication
-Server -- ServerApplication
-Server -- ServerChatController
-ServerChatController -- ServerApplication
-ServerChatController -- Server
-ServerChatController -- SceneController
 
-Client -- ClientApplication
-Client -- ClientController
-ClientController -- ClientApplication
+ServerApplication --> ServerChatController 
+ServerChatController -- Server
+ServerChatController --> SceneController
+
+ClientApplication --> ClientController
+ClientController -- Client
+
+
+Client -- Server: request and send info
+
 
 @enduml
