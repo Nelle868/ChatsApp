@@ -14,6 +14,7 @@ What IDE are you using?
 IntelliJ IDEA
 
 What challenges were you facing?
+Going from five group members to three.
 Meeting internal deadlines that the group set back in March was a challenege.
 
 Is there anything that is not working? If so, what is it and what have you tried to get it to work?
